@@ -44,7 +44,7 @@ ENV NIX_PATH=/nix/var/nix/profiles/per-user/${USERNAME}/channels
 # Source Nix profile
 SHELL ["/bin/bash", "-c"]
 RUN . /home/${USERNAME}/.nix-profile/etc/profile.d/nix.sh
-
+ENV USERNAME=vscode
 # Write nix.conf to the user's configuration directory
 RUN mkdir -p /home/${USERNAME}/.config/nix \
     && echo 'build-users-group = nixbld' > /home/${USERNAME}/.config/nix/nix.conf \
@@ -60,17 +60,17 @@ RUN mkdir -p /home/${USERNAME}/.config/nix \
 RUN chown -R ${USERNAME}:${USERNAME} /home/${USERNAME}/.config
 
 # Clone the minimal-ptt-examples repository
-RUN git clone https://github.com/input-output-hk/minimal-ptt-examples.git /home/${USERNAME}/minimal-ptt-examples
+RUN git clone https://github.com/input-output-hk/minimal-ptt-examples.git /home/${USERNAME}/workspace/minimal-ptt-examples
 
 # Set the working directory to the repository
-WORKDIR /home/${USERNAME}/minimal-ptt-examples
+WORKDIR /home/${USERNAME}/workspace/minimal-ptt-examples
 
 # Pre-fetch dependencies using nix develop
 RUN nix develop . --command cabal update
 RUN nix develop . --command cabal build
-# NIX_CONFIG=$$NIX_CONFIG nix develop . --command sh $$TEMP_SCRIPT
+
 # Return to home directory
-WORKDIR /home/${USERNAME}
+WORKDIR /home/${USERNAME}/workspace/minimal-ptt-examples
 
 # Set default shell
 SHELL ["/bin/bash", "-c"]

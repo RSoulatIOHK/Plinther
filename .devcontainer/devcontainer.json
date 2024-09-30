@@ -31,7 +31,7 @@
   "remoteEnv": {
     "NIX_PATH": "nixpkgs=channel:nixos-22.11"
   },
-  "postAttachCommand": "cd /home/vscode/minimal-ptt-examples && nix develop .",
-  "workspaceFolder": "/home/vscode/workspace",
-  "workspaceMount": "source=${localWorkspaceFolder},target=/home/vscode/workspace,type=bind,consistency=cached"
+  "postAttachCommand": "cd /home/vscode/workspace/minimal-ptt-examples && nix develop .",
+  "workspaceFolder": "/home/workspace",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/home/workspace,type=bind,consistency=cached"
 }
