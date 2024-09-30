@@ -50,8 +50,8 @@ RUN mkdir -p /home/${USERNAME}/.config/nix \
     && echo 'build-users-group = nixbld' > /home/${USERNAME}/.config/nix/nix.conf \
     && echo 'substituters = https://cache.zw3rk.com https://cache.iog.io https://cache.nixos.org/' >> /home/${USERNAME}/.config/nix/nix.conf \
     && echo 'trusted-public-keys = loony-tools:pr9m4BkM/5/eSTZlkQyRt57Jz7OMBxNSUiMC4FkcNfk= \
-              hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= \
-              cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=' >> /home/${USERNAME}/.config/nix/nix.conf \
+    hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= \
+    cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=' >> /home/${USERNAME}/.config/nix/nix.conf \
     && echo 'experimental-features = nix-command flakes' >> /home/${USERNAME}/.config/nix/nix.conf \
     && echo 'accept-flake-config = true' >> /home/${USERNAME}/.config/nix/nix.conf \
     && echo 'sandbox = false' >> /home/${USERNAME}/.config/nix/nix.conf
@@ -66,8 +66,9 @@ RUN git clone https://github.com/input-output-hk/minimal-ptt-examples.git /home/
 WORKDIR /home/${USERNAME}/minimal-ptt-examples
 
 # Pre-fetch dependencies using nix develop
-RUN nix develop --command echo "Dependencies cached"
-
+RUN nix develop . --command cabal update
+RUN nix develop . --command cabal build
+# NIX_CONFIG=$$NIX_CONFIG nix develop . --command sh $$TEMP_SCRIPT
 # Return to home directory
 WORKDIR /home/${USERNAME}
 
