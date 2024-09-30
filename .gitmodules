@@ -1,0 +1,3 @@
+[submodule "minimal-ptt-examples"]
+	path = minimal-ptt-examples
+	url = https://github.com/input-output-hk/minimal-ptt-examples
