@@ -1,0 +1,36 @@
+// .devcontainer/devcontainer.json
+{
+  "name": "Plinther: Plinth Development Environment",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "..",
+    "args": {
+      "USERNAME": "vscode",
+      "UID": "1000",
+      "GID": "1000"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "editor.formatOnSave": true,
+        "haskell.formattingProvider": "ormolu",
+        "haskell.manageHLS": "GHCup",
+        "haskell.serverEnvironment": {
+          "NIX_PATH": "nixpkgs=channel:nixos-22.11"
+        }
+      },
+      "extensions": [
+        "haskell.haskell",
+        "ms-azuretools.vscode-docker"
+      ]
+    }
+  },
+  "remoteUser": "vscode",
+  "remoteEnv": {
+    "NIX_PATH": "nixpkgs=channel:nixos-22.11"
+  },
+  "workspaceFolder": "/home/vscode/workspace",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/home/vscode/workspace,type=bind,consistency=cached"
+}
