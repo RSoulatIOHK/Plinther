@@ -1,5 +1,15 @@
-# Use Ubuntu base image
-FROM --platform=linux/amd64 ubuntu:22.04
+# syntax=docker/dockerfile:1.4
+
+# Declare build arguments
+ARG TARGETPLATFORM
+ARG BUILDPLATFORM
+
+# Use the base image for the target platform
+FROM --platform=$TARGETPLATFORM ubuntu:22.04
+
+# Redeclare the ARG variables after FROM
+ARG TARGETPLATFORM
+ARG BUILDPLATFORM
 
 # Set environment to noninteractive
 ENV DEBIAN_FRONTEND=noninteractive
